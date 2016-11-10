@@ -47,7 +47,7 @@ bool playGame(Hero &hero, list<Dragon*> &dragons)
         }
         else // dragon was killed!
         {
-            hero.addScores(Dragon::c_killScores);
+            hero.addScores(100);
             cout << "Ough! You have killed a dragon!" << endl;
         }
     }

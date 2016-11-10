@@ -16,7 +16,7 @@ public:
         :Unit(start_health, _attackForce), my_color(color)
     {}
 
-    std::string generateQuestion();
+    virtual std::string generateQuestion()=0;
 
     bool checkAnswer(int answer) const
     {
@@ -30,7 +30,7 @@ public:
 
 class GreenDragon: public Dragon
 {
-    static const int c_greenDragonHealth = 50;
+    static const int c_greenDragonHealth = 60;
     static const int c_greenDragonAttackForce = 5;
 public:
 
@@ -49,10 +49,48 @@ public:
         return question.str();
     }
 };
+class RedDragon: public Dragon
+{
+    static const int c_redDragonHealth = 80;
+    static const int c_redDragonAttackForce = 10;
+public:
 
-//class RedDragon;
+    RedDragon()
+            :Dragon("Red", c_redDragonHealth,
+                    c_redDragonAttackForce)
+    {}
+    std::string generateQuestion()
+    {
+        int left = 1+rand()%100;
+        int right = 1+rand()%100;
 
-//class BlackDragon;
+        std::stringstream question;
+        question <<left<< " * " << right << ": ";
+        my_answer = left * right;
+        return question.str();
+    }
+};
+class BlackDragon: public Dragon
+{
+    static const int c_blackDragonHealth = 100;
+    static const int c_blackDragonAttackForce = 20;
+public:
+
+    BlackDragon()
+            :Dragon("Black", c_blackDragonHealth,
+                    c_blackDragonAttackForce)
+    {}
+    std::string generateQuestion()
+    {
+        int right = 1 + rand()%100;
+        int left = right*(rand()%10+1);
+
+        std::stringstream question;
+        question << left << " / " << right << ": ";
+        my_answer = left / right;
+        return question.str();
+    }
+};
 
 
 #endif // DRAGON_H_INCLUDED
